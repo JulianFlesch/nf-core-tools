@@ -1,6 +1,6 @@
 {
     "name": "nfcore",
-    "image": "docker.io/fljulian/nfcore-devcontainer:latest",
+    "image": "fljulian/nfcore-devcontainer:latest",
 
     "remoteEnv": {
         // Workspace path on the host for mounting with docker-outside-of-docker
