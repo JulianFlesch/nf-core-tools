@@ -9,7 +9,8 @@
     },
 
     "features": {
-        "ghcr.io/devcontainers/features/docker-outside-of-docker:1.6.3": {}
+        //"ghcr.io/devcontainers/features/docker-outside-of-docker:1.6.3": {}
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
     },
 
     "remoteEnv": {
