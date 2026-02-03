@@ -290,12 +290,6 @@ def command_pipelines_create(ctx, name, description, author, version, force, out
     help="Sort lint output by module or test name.",
     show_default=True,
 )
-@click.option(
-    "--plain-text",
-    is_flag=True,
-    envvar="NF_CORE_LINT_OUTPUT",
-    help="Print results in plain text format without Rich formatting (easier to copy). Can also be enabled with env var NF_CORE_LINT_OUTPUT.",
-)
 @click.pass_context
 def command_pipelines_lint(
     ctx,
@@ -309,14 +303,11 @@ def command_pipelines_lint(
     markdown,
     json,
     sort_by,
-    plain_text,
 ):
     """
     Check pipeline code against nf-core guidelines.
     """
-    pipelines_lint(
-        ctx, directory, release, fix, key, show_passed, fail_ignored, fail_warned, markdown, json, sort_by, plain_text
-    )
+    pipelines_lint(ctx, directory, release, fix, key, show_passed, fail_ignored, fail_warned, markdown, json, sort_by)
 
 
 # nf-core pipelines download
@@ -1325,21 +1316,13 @@ def command_modules_test(ctx, tool, directory, no_prompts, update, once, profile
     help="Fix the module version if a newer version is available",
 )
 @click.option("--fix", is_flag=True, help="Fix all linting tests if possible.")
-@click.option(
-    "--plain-text",
-    is_flag=True,
-    envvar="NF_CORE_LINT_OUTPUT",
-    help="Print results in plain text format without Rich formatting (easier to copy). Can also be enabled with env var NF_CORE_LINT_OUTPUT.",
-)
 def command_modules_lint(
-    ctx, tool, directory, registry, key, all, fail_warned, local, passed, sort_by, fix_version, fix, plain_text
+    ctx, tool, directory, registry, key, all, fail_warned, local, passed, sort_by, fix_version, fix
 ):
     """
     Lint one or more modules in a directory.
     """
-    modules_lint(
-        ctx, tool, directory, registry, key, all, fail_warned, local, passed, sort_by, fix_version, fix, plain_text
-    )
+    modules_lint(ctx, tool, directory, registry, key, all, fail_warned, local, passed, sort_by, fix_version, fix)
 
 
 # nf-core modules info
@@ -1720,21 +1703,13 @@ def command_subworkflows_list_local(ctx, keywords, json, directory):  # pylint: 
     show_default=True,
 )
 @click.option("--fix", is_flag=True, help="Fix all linting tests if possible.")
-@click.option(
-    "--plain-text",
-    is_flag=True,
-    envvar="NF_CORE_LINT_OUTPUT",
-    help="Print results in plain text format without Rich formatting (easier to copy). Can also be enabled with env var NF_CORE_LINT_OUTPUT.",
-)
 def command_subworkflows_lint(
-    ctx, subworkflow, directory, registry, key, all, fail_warned, local, passed, sort_by, fix, plain_text
+    ctx, subworkflow, directory, registry, key, all, fail_warned, local, passed, sort_by, fix
 ):
     """
     Lint one or more subworkflows in a directory.
     """
-    subworkflows_lint(
-        ctx, subworkflow, directory, registry, key, all, fail_warned, local, passed, sort_by, fix, plain_text
-    )
+    subworkflows_lint(ctx, subworkflow, directory, registry, key, all, fail_warned, local, passed, sort_by, fix)
 
 
 # nf-core subworkflows info

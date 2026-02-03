@@ -75,7 +75,6 @@ class SubworkflowLint(ComponentLint):
         show_passed=False,
         sort_by="test",
         local=False,
-        plain_text=False,
     ):
         """
         Lint all or one specific subworkflow
@@ -94,7 +93,6 @@ class SubworkflowLint(ComponentLint):
         :param print_results:   Whether to print the linting results
         :param show_passed:     Whether passed tests should be shown as well
         :param hide_progress:   Don't show progress bars
-        :param plain_text:      Print output in plain text without rich formatting
 
         :returns:               A SubworkflowLint object containing information of
                                 the passed, warned and failed tests
@@ -145,8 +143,8 @@ class SubworkflowLint(ComponentLint):
             self.lint_subworkflows(remote_subworkflows, registry=registry, local=False)
 
         if print_results:
-            self._print_results(show_passed=show_passed, sort_by=sort_by, plain_text=plain_text)
-            self.print_summary(plain_text=plain_text)
+            self._print_results(show_passed=show_passed, sort_by=sort_by)
+            self.print_summary()
 
     def lint_subworkflows(self, subworkflows, registry="quay.io", local=False):
         """

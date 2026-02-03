@@ -261,9 +261,7 @@ def modules_test(ctx, tool, directory, no_prompts, update, once, profile, migrat
         sys.exit(1)
 
 
-def modules_lint(
-    ctx, tool, directory, registry, key, all, fail_warned, local, passed, sort_by, fix_version, fix, plain_text
-):
+def modules_lint(ctx, tool, directory, registry, key, all, fail_warned, local, passed, sort_by, fix_version, fix):
     """
     Lint one or more modules in a directory.
 
@@ -297,7 +295,6 @@ def modules_lint(
             show_passed=passed,
             sort_by=sort_by,
             fix_version=fix_version,
-            plain_text=plain_text,
         )
         if len(module_lint.failed) > 0:
             sys.exit(1)
