@@ -210,7 +210,7 @@ def modules_create(
         sys.exit(1)
 
 
-def modules_test(ctx, tool, directory, no_prompts, update, once, profile):
+def modules_test(ctx, tool, directory, no_prompts, plain_text, update, once, profile):
     """
     Run nf-test for a module.
 
@@ -224,6 +224,7 @@ def modules_test(ctx, tool, directory, no_prompts, update, once, profile):
             component_name=tool,
             directory=directory,
             no_prompts=no_prompts,
+            plain_text=plain_text,
             update=update,
             once=once,
             remote_url=ctx.obj["modules_repo_url"],

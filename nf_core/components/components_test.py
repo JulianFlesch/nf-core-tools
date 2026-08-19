@@ -36,6 +36,8 @@ class ComponentsTest(ComponentCommand):  # type: ignore[misc]
         path to modules repository directory
     no_prompts : bool
         flat indicating if prompts are used
+    plain_text : bool
+        flag indicating if plain text output should be used instead of rich elements
     remote_url : str
         URL of the remote repository
     branch : str
@@ -67,6 +69,7 @@ class ComponentsTest(ComponentCommand):  # type: ignore[misc]
         component_name: str | None = None,
         directory: str = ".",
         no_prompts: bool = False,
+        plain_text: bool = False,
         remote_url: str | None = None,
         branch: str | None = None,
         verbose: bool = False,
@@ -74,7 +77,7 @@ class ComponentsTest(ComponentCommand):  # type: ignore[misc]
         once: bool = False,
         profile: str | None = None,
     ):
-        super().__init__(component_type, directory, remote_url, branch, no_prompts=no_prompts)
+        super().__init__(component_type, directory, remote_url, branch, no_prompts=no_prompts, plain_text=plain_text)
         self.component_name = component_name
         self.remote_url = remote_url
         self.branch = branch

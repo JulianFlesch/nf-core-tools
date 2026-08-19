@@ -1293,6 +1293,12 @@ def command_modules_create(
     default=False,
     help="Use defaults without prompting",
 )
+@click.option(
+    "--plain-text",
+    is_flag=True,
+    default=False,
+    help="Print results in plain text format without Rich formatting.",
+)
 @click.option("-u", "--update", is_flag=True, default=False, help="Update existing snapshots")
 @click.option(
     "-o",
@@ -1307,7 +1313,7 @@ def command_modules_create(
     default=None,
     help="Run tests with a specific profile",
 )
-def command_modules_test(ctx, tool, directory, no_prompts, update, once, profile, verbose):
+def command_modules_test(ctx, tool, directory, no_prompts, plain_text, update, once, profile, verbose):
     """
     Run nf-test for a module. Only works on module repositories, not pipeline repositories.
     """
@@ -1315,7 +1321,7 @@ def command_modules_test(ctx, tool, directory, no_prompts, update, once, profile
         ctx.obj["verbose"] = verbose
     from nf_core.commands_modules import modules_test
 
-    modules_test(ctx, tool, directory, no_prompts, update, once, profile)
+    modules_test(ctx, tool, directory, no_prompts, plain_text, update, once, profile)
 
 
 # nf-core modules lint
@@ -1654,6 +1660,12 @@ def command_subworkflows_create(ctx, subworkflow, directory, author, force):
     is_flag=True,
     default=False,
     help="Use defaults without prompting",
+)
+@click.option(
+    "--plain-text",
+    is_flag=True,
+    default=False,
+    help="Print results in plain text format without Rich formatting.",
 )
 @click.option("-u", "--update", is_flag=True, default=False, help="Update existing snapshots")
 @click.option(

@@ -28,6 +28,7 @@ class ComponentCommand:
         no_pull: bool = False,
         hide_progress: bool = False,
         no_prompts: bool = False,
+        plain_text: bool = False,
     ) -> None:
         """
         Initialise the ComponentClass object
@@ -37,6 +38,7 @@ class ComponentCommand:
         self.modules_repo = ModulesRepo(remote_url, branch, no_pull, hide_progress)
         self.hide_progress: bool = hide_progress
         self.no_prompts: bool = no_prompts or not nf_core.utils.is_interactive()
+        self.plain_text: bool = plain_text
         self.repo_type: str | None = None
         self.org: str = ""
         self._configure_repo_and_paths()

@@ -34,7 +34,7 @@ def subworkflows_create(ctx, subworkflow, directory, author, force):
         sys.exit(1)
 
 
-def subworkflows_test(ctx, subworkflow, directory, no_prompts, update, once, profile):
+def subworkflows_test(ctx, subworkflow, directory, no_prompts, plain_text, update, once, profile):
     """
     Run nf-test for a subworkflow.
 
@@ -48,6 +48,7 @@ def subworkflows_test(ctx, subworkflow, directory, no_prompts, update, once, pro
             component_name=subworkflow,
             directory=directory,
             no_prompts=no_prompts,
+            plain_text=plain_text,
             update=update,
             once=once,
             remote_url=ctx.obj["modules_repo_url"],
