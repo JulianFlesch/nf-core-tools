@@ -1681,13 +1681,13 @@ def command_subworkflows_create(ctx, subworkflow, directory, author, force):
     default=None,
     help="Run tests with a specific profile",
 )
-def command_subworkflows_test(ctx, subworkflow, directory, no_prompts, update, once, profile):
+def command_subworkflows_test(ctx, subworkflow, directory, no_prompts, plain_text, update, once, profile):
     """
     Run nf-test for a subworkflow.
     """
     from nf_core.commands_subworkflows import subworkflows_test
 
-    subworkflows_test(ctx, subworkflow, directory, no_prompts, update, once, profile)
+    subworkflows_test(ctx, subworkflow, directory, no_prompts, plain_text, update, once, profile)
 
 
 # nf-core subworkflows list subcommands
