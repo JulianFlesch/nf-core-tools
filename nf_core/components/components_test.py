@@ -164,17 +164,22 @@ class ComponentsTest(ComponentCommand):  # type: ignore[misc]
                 log.info("Updating snapshot")
                 self.generate_snapshot()
         else:
-            # Interactive mode: use Rich formatting
-            print("Displaying nf-test output")
+            print("nf-test output:")
             nftest_output = Text.from_ansi(nftest_out.decode())
-            print(Panel(nftest_output, title="nf-test output"))
-            print("Displaying nf-test error", nftest_err.decode())
+            if not self.plain_text:
+                nftest_output = Panel(nftest_output, title="nf-test output")
+            print(nftest_output)
+
             if nftest_err:
-                print("Parsing nf-test error")
+                print("nf-test error:")
+                log.debug("Parsing nf-test error")
                 syntax = Syntax(nftest_err.decode(), "diff", theme="ansi_dark")
-                print("Parsed nf-test error")
-                print(Panel(syntax, title="nf-test error"))
-                print("Displaying nf-test error")
+                log.debug("Parsed nf-test error")
+                if self.plain_text:
+                    print(syntax)
+                else:
+                    print(Panel(syntax, title="nf-test error"))
+
             if "Different Snapshot:" in nftest_err.decode():
                 log.error("nf-test failed due to differences in the snapshots")
                 if self.update is None:
