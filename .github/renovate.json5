@@ -1,9 +1,62 @@
 {
     $schema: "https://docs.renovatebot.com/renovate-schema.json",
-    extends: ["github>nf-core/ops//.github/renovate/default.json5"],
+    // Previously this extended "github>nf-core/ops//.github/renovate/default.json5",
+    // but nf-core/ops is private and Renovate (which authenticates as a public app)
+    // can no longer resolve that preset (see nf-core/tools#4446 - "Cannot find
+    // preset's package"). Inlined the preset's contents below instead of depending
+    // on an external repo. If nf-core/ops becomes public again, this can revert to
+    // an `extends` reference - just re-diff against the current default.json5 there
+    // first in case it has since changed.
+    extends: ["config:best-practices", ":automergeDigest", ":automergeBranch", "schedule:monthly"],
+    vulnerabilityAlerts: {
+        labels: ["security"],
+        schedule: "at any time",
+    },
+    prHourlyLimit: 3,
+    platform: "github",
+    onboarding: false,
+    dependencyDashboard: true,
+    dependencyDashboardTitle: "Renovate Dashboard 🤖",
+    suppressNotifications: ["prIgnoreNotification"],
+    rebaseWhen: "auto",
+    reviewers: ["edmundmiller"],
+    assigneesFromCodeOwners: true,
+    gitAuthor: "nf-core-bot <renovate@nf-co.re>",
+    lockFileMaintenance: {
+        enabled: true,
+        schedule: ["before 5am on the first day of the month"],
+    },
+    "pre-commit": {
+        enabled: true,
+    },
     ignorePaths: ["**/nf_core/pipeline-template/modules/nf-core/**"],
     baseBranchPatterns: ["dev"],
     packageRules: [
+        {
+            matchDatasources: ["docker"],
+            registryUrls: ["quay.io"],
+        },
+        {
+            matchManagers: ["github-actions"],
+            groupName: "GitHub Actions",
+            automerge: true,
+            schedule: ["before 9am"],
+        },
+        {
+            automerge: true,
+            schedule: ["before 9am on Monday"],
+            matchPackageNames: ["/renovate-config-validator/"],
+        },
+        {
+            matchManagers: ["pre-commit"],
+            groupName: "pre-commit hooks",
+        },
+        {
+            matchManagers: ["custom.regex"],
+            matchFileNames: ["**/.pre-commit*config*.yaml"],
+            groupName: "pre-commit npm dependencies",
+            groupSlug: "pre-commit-npm",
+        },
         {
             matchDatasources: ["docker"],
             matchPackageNames: ["python"],
@@ -16,6 +69,15 @@
         {
             matchCurrentValue: "/</",
             rangeStrategy: "in-range-only",
+        },
+    ],
+    customManagers: [
+        {
+            customType: "regex",
+            managerFilePatterns: ["**/.pre-commit*config*.yaml"],
+            matchStrings: ["- (?<depName>[^@\\s]+)@(?<currentValue>[^\\s#]+)"],
+            datasourceTemplate: "npm",
+            versioningTemplate: "npm",
         },
     ],
     gitIgnoredAuthors: ["core@nf-co.re"],
